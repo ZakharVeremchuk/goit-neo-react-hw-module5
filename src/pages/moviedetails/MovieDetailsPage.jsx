@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import { getMovieDetails, buildImagePath } from "../../api/moviesApi";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import css from "./MovieDetailsPage.module.css";
@@ -10,7 +10,8 @@ const MovieDetailsPage = () => {
   const [error, setError] = useState(false);
 
   const { movieId } = useParams();
-  const backPath = location.state ?? "/";
+  const location = useLocation();
+  const backPath = useRef(location.state ?? '/movies');
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -29,7 +30,7 @@ const MovieDetailsPage = () => {
 
   return (
     <>
-      <Link to={backPath}>Go back</Link>
+      <Link to={backPath.current}>Go back</Link>
       {loading && <p>Loading movie detail ...</p>}
       {error && <p>Something went wrong, refresh page</p>}
       {movieDetails && !loading && !error && (

@@ -1,6 +1,6 @@
-import { Routes, Route, NavLink } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
-import css from './App.module.css'
+import Navigation from './components/navigation/Navigation';
 
 function App() {
 
@@ -12,13 +12,7 @@ function App() {
 
   return (
     <>
-    <div>
-      <nav className={css.nav}>
-        <NavLink to="/" >Home</NavLink>
-        <NavLink to="/movies">Movies</NavLink>
-      </nav>
-
-    </div>
+    <Navigation />
     <Suspense fallback={<div>Loading page ...</div>}>
       <Routes>
         <Route path="/" element={<HomePage/>}></Route>
