@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getTrendingMovies } from "../../api/moviesApi";
+import MovieList from "../../components/movieList/MovieList";
 
 const HomePage = () => {
   const [trendMovies, setTrendMovies] = useState([]);
@@ -26,14 +27,13 @@ const HomePage = () => {
 
   return (
     <>
-      <div>Trending Today</div>
-      <ul>
-        {trendMovies.map((movie) => (
-          <li key={movie.id}>
-            <p>{movie.title}</p>
-          </li>
-        ))}
-      </ul>
+      <h2>Trending Today</h2>
+      {loading && <p>Loading trending movies ...</p>}
+      {error && <p>Something went wrong, refresh page </p>}
+      {trendMovies.length === 0 && <p>Today we haven't trending movies</p>}
+      {trendMovies.length > 0 && !loading && !error && (
+        <MovieList movies={trendMovies} />
+      )}
     </>
   );
 };
